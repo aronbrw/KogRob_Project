@@ -3,6 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry
+from std_msgs.msg import Bool
 
 
 class AnomalyMapperNode(Node):
@@ -18,11 +19,32 @@ class AnomalyMapperNode(Node):
 
         self.get_logger().info('Anomaly mapper node started. Listening to /odom...')
 
-    def odom_callback(self, msg):
-        x = msg.pose.pose.position.x
-        y = msg.pose.pose.position.y
+        self.current_x = 0.0
+        self.current_y = 0.0
 
-        self.get_logger().info(f'Robot position: x={x:.2f}, y={y:.2f}')
+        self.break_subscriber = self.create_subscription(
+            Bool,
+            '/break_detected',
+            self.break_callback,
+            10
+        )
+
+    def odom_callback(self, msg):
+        self.current_x = msg.pose.pose.position.x
+        self.current_y = msg.pose.pose.position.y
+
+        self.get_logger().info(
+            f'Robot position: x={self.current_x:.2f}, y={self.current_y:.2f}'
+        )
+
+    def break_callback(self, msg):
+
+        # If break/anomaly detected
+        if msg.data:
+
+            self.get_logger().info(
+                f'BREAK DETECTED AT x={self.current_x:.2f}, y={self.current_y:.2f}'
+            )
 
 
 def main(args=None):
