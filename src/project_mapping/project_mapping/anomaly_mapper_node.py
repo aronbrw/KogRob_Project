@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import math
+
 import rclpy
 from rclpy.node import Node
 
@@ -13,10 +15,18 @@ class AnomalyMapperNode(Node):
     def __init__(self):
         super().__init__('anomaly_mapper_node')
 
+        # A robot aktuális pozíciója az /odom topic alapján
         self.current_x = 0.0
         self.current_y = 0.0
+
+        # Az eltárolt anomáliák listája
         self.anomalies = []
 
+        # Ha egy új detektálás ennél közelebb van egy régi anomáliához,
+        # akkor ugyanannak az anomáliának tekintjük
+        self.match_distance = 0.35
+
+        # Feliratkozás az odometriára
         self.odom_subscriber = self.create_subscription(
             Odometry,
             '/odom',
@@ -24,6 +34,7 @@ class AnomalyMapperNode(Node):
             10
         )
 
+        # Feliratkozás a szakadás/anomália detektálás topicra
         self.break_subscriber = self.create_subscription(
             Bool,
             '/break_detected',
@@ -31,6 +42,15 @@ class AnomalyMapperNode(Node):
             10
         )
 
+        # Feliratkozás a kör vége topicra
+        self.lap_finished_subscriber = self.create_subscription(
+            Bool,
+            '/lap_finished',
+            self.lap_finished_callback,
+            10
+        )
+
+        # RViz marker publisher
         self.marker_publisher = self.create_publisher(
             MarkerArray,
             '/anomaly_markers',
@@ -38,27 +58,104 @@ class AnomalyMapperNode(Node):
         )
 
         self.get_logger().info(
-            'Anomaly mapper node started. Listening to /odom and /break_detected...'
+            'Anomaly mapper node started. Listening to /odom, /break_detected and /lap_finished...'
         )
 
     def odom_callback(self, msg):
+
+        # A robot aktuális pozíciójának mentése
         self.current_x = msg.pose.pose.position.x
         self.current_y = msg.pose.pose.position.y
 
     def break_callback(self, msg):
-        if msg.data:
-            self.anomalies.append((self.current_x, self.current_y))
+
+        # False üzenetek ignorálása
+        if not msg.data:
+            return
+
+        # Megnézzük van-e már ismert anomália a közelben
+        existing_anomaly = self.find_nearby_anomaly(
+            self.current_x,
+            self.current_y
+        )
+
+        if existing_anomaly is not None:
+
+            # Korábbi anomália újra detektálva ebben a körben
+            existing_anomaly["active"] = True
+            existing_anomaly["seen_this_lap"] = True
 
             self.get_logger().info(
-                f'BREAK DETECTED AT x={self.current_x:.2f}, y={self.current_y:.2f}'
+                f'KNOWN BREAK SEEN AGAIN AT x={self.current_x:.2f}, y={self.current_y:.2f}'
             )
 
-            self.publish_markers()
+        else:
+
+            # Új anomália létrehozása
+            new_anomaly = {
+                "x": self.current_x,
+                "y": self.current_y,
+                "active": True,
+                "seen_this_lap": True
+            }
+
+            self.anomalies.append(new_anomaly)
+
+            self.get_logger().info(
+                f'NEW BREAK DETECTED AT x={self.current_x:.2f}, y={self.current_y:.2f}'
+            )
+
+        self.publish_markers()
+
+    def lap_finished_callback(self, msg):
+
+        # False üzenetek ignorálása
+        if not msg.data:
+            return
+
+        self.get_logger().info(
+            'LAP FINISHED. Updating anomaly states...'
+        )
+
+        for anomaly in self.anomalies:
+
+            # Ha korábban aktív volt,
+            # de ebben a körben már nem láttuk újra,
+            # akkor eltűntnek tekintjük
+            if anomaly["active"] and not anomaly["seen_this_lap"]:
+
+                anomaly["active"] = False
+
+                self.get_logger().info(
+                    f'BREAK DISAPPEARED AT x={anomaly["x"]:.2f}, y={anomaly["y"]:.2f}'
+                )
+
+            # Következő körre reseteljük
+            anomaly["seen_this_lap"] = False
+
+        self.publish_markers()
+
+    def find_nearby_anomaly(self, x, y):
+
+        # Megkeressük van-e már ismert anomália a közelben
+        for anomaly in self.anomalies:
+
+            dx = anomaly["x"] - x
+            dy = anomaly["y"] - y
+
+            distance = math.sqrt(dx * dx + dy * dy)
+
+            if distance < self.match_distance:
+                return anomaly
+
+        return None
 
     def publish_markers(self):
+
         marker_array = MarkerArray()
 
-        for i, (x, y) in enumerate(self.anomalies):
+        for i, anomaly in enumerate(self.anomalies):
+
             marker = Marker()
 
             marker.header.frame_id = 'odom'
@@ -69,8 +166,8 @@ class AnomalyMapperNode(Node):
             marker.type = Marker.SPHERE
             marker.action = Marker.ADD
 
-            marker.pose.position.x = x
-            marker.pose.position.y = y
+            marker.pose.position.x = anomaly["x"]
+            marker.pose.position.y = anomaly["y"]
             marker.pose.position.z = 0.1
 
             marker.pose.orientation.w = 1.0
@@ -79,9 +176,22 @@ class AnomalyMapperNode(Node):
             marker.scale.y = 0.2
             marker.scale.z = 0.2
 
-            marker.color.r = 1.0
-            marker.color.g = 0.0
-            marker.color.b = 0.0
+            # Marker színek:
+            # active=True  -> piros = aktív / jelenlegi szakadás
+            # active=False -> kék = eltűnt / korábbi szakadás
+
+            if anomaly["active"]:
+
+                marker.color.r = 1.0
+                marker.color.g = 0.0
+                marker.color.b = 0.0
+
+            else:
+
+                marker.color.r = 0.0
+                marker.color.g = 0.0
+                marker.color.b = 1.0
+
             marker.color.a = 1.0
 
             marker_array.markers.append(marker)
@@ -90,10 +200,15 @@ class AnomalyMapperNode(Node):
 
 
 def main(args=None):
+
     rclpy.init(args=args)
+
     node = AnomalyMapperNode()
+
     rclpy.spin(node)
+
     node.destroy_node()
+
     rclpy.shutdown()
 
 
