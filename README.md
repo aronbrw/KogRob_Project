@@ -14,6 +14,7 @@ The map used in the simulation contains a white ground, and many movable flat bl
 collide with the boxes, only sees them as a black line.
 
 With manually moving the shorter boxes, we can create and remove breaks in the track while the robot is still moving.
+<img width="530" height="461" alt="image" src="https://github.com/user-attachments/assets/7bdb4dc9-3366-436c-b79d-e87f28ed6972" />
 
 ## Lap Detector Module - 'lap_detector_node'
 
