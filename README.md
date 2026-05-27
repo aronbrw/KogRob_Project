@@ -108,10 +108,10 @@ while the blue marker represents a previously detected but currently disappeared
 
 ### Used ROS Packages
 
-- `rclpy`
-- `nav_msgs`
-- `std_msgs`
-- `visualization_msgs`
+- `rclpy`                     https://docs.ros.org/en/iron/p/rclpy/
+- `nav_msgs                   https://wiki.ros.org/nav_msgs
+- `std_msgs                   https://wiki.ros.org/std_msgs
+- `visualization_msgs`        https://wiki.ros.org/visualization_msgs
 - `sensor_msgs`
 - `geometry_msgs`
 - `cv_bridge`
