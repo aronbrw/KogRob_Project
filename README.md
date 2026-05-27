@@ -62,7 +62,7 @@ Clone the project repository into your ROS2 workspace:
 ```bash
 cd ~/ros2_ws/src
 
-git clone <YOUR_REPOSITORY_LINK>
+git clone https://github.com/aronbrw/KogRob_Project.git
 ```
 
 ---
