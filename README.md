@@ -116,9 +116,12 @@ while the blue marker represents a previously detected but currently disappeared
 - `geometry_msgs`
 - `cv_bridge`
 - `turtlebot3`
+- `turtlebot3_msgs`
 - `turtlebot3_simulations`
 - `ros_gz_sim`
+- `rosgraph_msgs`
 
+  
 ### External Repositories
 
 MOGI ROS educational repository:
