@@ -1,4 +1,21 @@
 # KogRob_Project
+
+## Project Demonstration Video
+
+You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
+
+## Lap Detector Module - 'lap_detector_node'
+
+The purpose of the lap detector node is to detect when the robot has completed a full lap.
+The node publishes this information to a topic and also keeps track of the completed lap count in the terminal output.
+
+In the node's code, we can define a rectangular area that acts as the start/finish zone.
+Whenever the robot enters this area, the node registers a completed lap.
+The robot's current position is obtained from the `/odom` topic and continuously monitored.
+
+When the robot completes a lap, the node publishes a `True` boolean value to the `/lap_finished` topic,
+which is then read by the anomaly mapper node.
+
 ## Project Mapping Module — `anomaly_mapper_node`
 
 The purpose of the `project_mapping` module is to visualize and track detected line breaks/anomalies during line following in RViz.
