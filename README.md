@@ -16,6 +16,76 @@
 You can watch the demo video of the project here:
 [Project Demonstration Video](https://youtu.be/txEczfp6hIs)
 
+## Installation
+
+### Requirements
+
+The project was developed and tested using:
+
+- Ubuntu 24.04
+- ROS2 Jazzy
+- Gazebo Harmonic
+
+---
+
+### Install TurtleBot3 Packages
+
+Install the required TurtleBot3 packages:
+
+```bash
+sudo apt update
+
+sudo apt install ros-jazzy-turtlebot3 \
+ros-jazzy-turtlebot3-msgs \
+ros-jazzy-turtlebot3-simulations
+```
+
+---
+
+### Clone the MOGI ROS Educational Repository
+
+The project depends on the MOGI ROS educational packages:
+
+```bash
+git clone https://github.com/MOGI-ROS/Week-1-8-Cognitive-robotics.git
+```
+
+---
+
+### Clone This Repository
+
+Clone the project repository into your ROS2 workspace:
+
+```bash
+cd ~/ros2_ws/src
+
+git clone <YOUR_REPOSITORY_LINK>
+```
+
+---
+
+### Build the Workspace
+
+```bash
+cd ~/ros2_ws
+
+colcon build
+```
+
+---
+
+### Source the Workspace
+
+```bash
+source install/setup.bash
+```
+
+To make sourcing permanent:
+
+```bash
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
 ## Simulation - simulation_bringup_line_follow.launch.py
 
 The complete simulation environment is initialized using a ROS2 launch file. The purpose of the launch file is to automatically start all required system components with a single command, including:
