@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
+- [Project Demonstration Video](#project-demonstration-video)
 - [Installation](#installation)
 - [Running the Project](#running-the-project)
-- [Project Demonstration Video](#project-demonstration-video)
 - [Simulation](#simulation---simulation_bringup_line_followlaunchpy)
 - [Line Following and Break Detecting](#line-following-and-break-detecting---break_detector_nn)
 - [Gazebo World](#gazebo-world---palya_finalsdf)
