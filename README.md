@@ -1,4 +1,10 @@
-# KogRob_Project
+# Line following and break/anomaly detection using a neural network.
+Team members:
+Szabados Tibor Balázs
+Veisz Andor
+Istvándi Soma
+Barna Áron
+Prokob András Benedek
 
 ## Table of Contents
 
