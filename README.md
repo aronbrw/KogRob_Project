@@ -20,6 +20,73 @@ You can watch the demo video of the project here:
 
 ## Line following and break detecting - break_detector_NN
 
+The camera image first goes through an image processing pipeline. The program extracts the lightness channel from the RGB image, inverts it, and applies a trapezoidal mask so that only the region where the track/line is expected remains visible.
+After this, thresholding is applied to create a binary image:
+- the line becomes white,
+- the background becomes black.
+The middle region of the binary image is then analyzed, since under normal conditions the line should appear there. This middle area is divided into three horizontal rectangular regions:
+
+- `UP` → upper / farther line segment
+- `MID` → middle section
+- `LOW` → lower / closer line segment
+
+The number of white pixels is counted in each rectangle. These values become the three input features of the neural network:
+
+- `upper_pixels`
+- `middle_pixels`
+- `lower_pixels`
+
+The neural network therefore does not process the full image directly, but instead works with these extracted numerical features.
+
+During training, the training script generates random sample values and labels them according to a predefined rule. A break is considered present when the upper and lower regions contain many white pixels, while the middle region contains significantly fewer.
+
+The exact rule used for generating the labels is:
+
+```python
+upper > 1300
+middle > 5000
+lower > 3000
+```
+
+A break is detected if:
+
+- `upper` is true,
+- `lower` is true,
+- but `middle` is false.
+
+The classifier itself is a small MLP (Multi-Layer Perceptron) neural network with two hidden layers containing 8 neurons each.
+
+Before classification, a `StandardScaler` normalizes the input features so that the network can learn more reliably from pixel counts with different magnitudes.
+
+During runtime, the processing pipeline works as follows:
+
+```text
+camera image
+    ↓
+binary image
+    ↓
+UP/MID/LOW white pixel counts
+    ↓
+neural network
+    ↓
+break / no break decision
+```
+
+The network output is binary:
+
+- `0` → no break detected
+- `1` → break detected
+
+For example:
+
+```text
+UP   = 2000
+MID  = 800
+LOW  = 4500
+```
+
+In this case, the line is visible in the upper and lower regions but disappears in the middle region, therefore the network classifies the situation as a break.
+
 ## Gazebo World - palya_final.sdf
 
 The Gazebo world consists of a white ground surface and multiple movable flat black boxes. These boxes have no collision, therefore the robot does not
