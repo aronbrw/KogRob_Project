@@ -18,6 +18,23 @@ You can watch the demo video of the project here:
 
 ## Simulation - simulation_bringup_line_follow.launch.py
 
+The complete simulation environment is initialized using a ROS2 launch file. The purpose of the launch file is to automatically start all required system components with a single command, including:
+
+- Gazebo simulation environment
+- TurtleBot3 robot model
+- world file (track)
+- robot initial position
+- robot state publisher nodes
+- trajectory server
+
+The simulation can be started with:
+
+```bash
+ros2 launch turtlebot3_mogi simulation_bringup_line_follow.launch.py world:=palya_final.sdf
+```
+
+Using the `world:=palya_final.sdf` parameter, the custom-made track used in the project can be loaded into the simulation.
+
 ## Line following and break detecting - break_detector_NN
 
 The camera image first goes through an image processing pipeline. The program extracts the lightness channel from the RGB image, inverts it, and applies a trapezoidal mask so that only the region where the track/line is expected remains visible.
