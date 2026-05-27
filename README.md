@@ -21,10 +21,10 @@ You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 
 ## Gazebo World - palya_final.sdf
 
-The map used in the simulation contains a white ground, and many movable flat black boxes. These boxes has no collision, therefore the robot does not
-collide with the boxes, only sees them as a black line.
+The Gazebo world consists of a white ground surface and multiple movable flat black boxes. These boxes have no collision, therefore the robot does not
+collide with the boxes, only detects them visually as black lines
 
-With manually moving the shorter boxes, we can create and remove breaks in the track while the robot is still moving.
+By manually moving the shorter boxes, breaks in the track can be dynamically created or removed while the robot is moving.
 <img width="530" height="461" alt="image" src="https://github.com/user-attachments/assets/7bdb4dc9-3366-436c-b79d-e87f28ed6972" />
 
 ## Lap Detector Module - 'lap_detector_node'
