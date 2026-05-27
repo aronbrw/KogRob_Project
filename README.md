@@ -9,7 +9,7 @@ You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 ## Gazebo World - palya_final.sdf
 
 The map used in the simulation contains a white ground, and many movable flat black boxes. These boxes has no collision, therefore the robot does not
-collide with the boxes, only sees it as a black line.
+collide with the boxes, only sees them as a black line.
 
 With moving manually the shorter boxes, we can create and remove breaks in the track while the robot is moving.
 
