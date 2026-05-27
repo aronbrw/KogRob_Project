@@ -13,7 +13,8 @@
 
 ## Project Demonstration Video
 
-You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
+You can watch the demo video of the project here:
+[Project Demonstration Video](https://youtu.be/txEczfp6hIs)
 
 ## Simulation - simulation_bringup_line_follow.launch.py
 
