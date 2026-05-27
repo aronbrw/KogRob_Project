@@ -148,6 +148,5 @@ while the blue marker represents a previously detected but currently disappeared
 MOGI ROS educational repository:
 
 https://github.com/MOGI-ROS/Week-1-8-Cognitive-robotics
-## External Repository
 
 The repository contains the `turtlebot3_mogi` simulation package and additional TurtleBot3 Gazebo resources used in this project.
