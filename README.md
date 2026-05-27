@@ -1,5 +1,16 @@
 # KogRob_Project
 
+## Table of Contents
+
+- [Project Demonstration Video](#project-demonstration-video)
+- [Simulation](#simulation---simulation_bringup_line_followlaunchpy)
+- [Line Following and Break Detecting](#line-following-and-break-detecting---break_detector_nn)
+- [Gazebo World](#gazebo-world---palya_finalsdf)
+- [Lap Detector Module](#lap-detector-module---lap_detector_node)
+- [Project Mapping Module](#project-mapping-module--anomaly_mapper_node)
+- [Used ROS Packages](#used-ros-packages)
+- [External Repositories](#external-repositories)
+
 ## Project Demonstration Video
 
 You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
