@@ -4,9 +4,9 @@
 
 You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 
-## simulation_bringup_line_follow.launch.py
+## Simulation - simulation_bringup_line_follow.launch.py
 
-## break_detector_NN
+## Line following and break detecting - break_detector_NN
 
 ## Lap Detector Module - 'lap_detector_node'
 
