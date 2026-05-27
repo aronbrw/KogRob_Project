@@ -11,6 +11,8 @@ You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 The map used in the simulation contains a white ground, and many movable flat black boxes. These boxes has no collision, therefore the robot does not
 collide with the boxes, only sees it as a black line.
 
+With moving the shorter boxes, we can create and remove breaks in the track while the robot is moving.
+
 ## Line following and break detecting - break_detector_NN
 
 ## Lap Detector Module - 'lap_detector_node'
