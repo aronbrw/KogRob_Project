@@ -6,6 +6,11 @@ You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 
 ## Simulation - simulation_bringup_line_follow.launch.py
 
+## Gazebo World - palya_final.sdf
+
+The map used in the simulation contains a white ground, and many movable flat black boxes. These boxes has no collision, therefore the robot does not
+collide with the boxes, only sees it as a black line.
+
 ## Line following and break detecting - break_detector_NN
 
 ## Lap Detector Module - 'lap_detector_node'
