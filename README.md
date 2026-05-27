@@ -27,6 +27,7 @@ The project was developed and tested using:
 - Ubuntu 24.04
 - ROS2 Jazzy
 - Gazebo Harmonic
+- Rviz
 
 ---
 
