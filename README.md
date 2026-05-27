@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
 - [Project Demonstration Video](#project-demonstration-video)
 - [Simulation](#simulation---simulation_bringup_line_followlaunchpy)
 - [Line Following and Break Detecting](#line-following-and-break-detecting---break_detector_nn)
@@ -86,6 +88,32 @@ To make sourcing permanent:
 echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
+## Running the Project
+
+Start the simulation:
+
+```bash
+ros2 launch turtlebot3_mogi simulation_bringup_line_follow.launch.py world:=palya_final.sdf
+```
+After the simulation has started, open separate terminals and run the required nodes:
+
+### Break Detector Node
+
+```bash
+ros2 run turtlebot3_mogi_py break_detector_NN
+```
+
+### Lap Detector Node
+
+```bash
+ros2 run project_mapping lap_detector_node
+```
+### Mapping node
+
+```bash
+ros2 run project_mapping lap_detector_node
+```
+
 ## Simulation - simulation_bringup_line_follow.launch.py
 
 The complete simulation environment is initialized using a ROS2 launch file. The purpose of the launch file is to automatically start all required system components with a single command, including:
