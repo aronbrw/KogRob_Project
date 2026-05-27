@@ -4,6 +4,10 @@
 
 You can watch the demo video of the project here: https://youtu.be/txEczfp6hIs
 
+## simulation_bringup_line_follow.launch.py
+
+## break_detector_NN
+
 ## Lap Detector Module - 'lap_detector_node'
 
 The purpose of the lap detector node is to detect when the robot has completed a full lap.
