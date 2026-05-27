@@ -121,6 +121,20 @@ while the blue marker represents a previously detected but currently disappeared
 | `/ros_gz_sim`                 | https://index.ros.org/p/ros_gz_sim/ |
 | `/rosgraph_msgs`             | https://wiki.ros.org/rosgraph_msgs |
 
+| ROS2 Package | Links |
+|---|---|
+| `rclpy` | https://docs.ros.org/en/iron/p/rclpy/ |
+| `nav_msgs` | https://wiki.ros.org/nav_msgs |
+| `std_msgs` | https://wiki.ros.org/std_msgs |
+| `visualization_msgs` | https://wiki.ros.org/visualization_msgs |
+| `sensor_msgs` | https://wiki.ros.org/sensor_msgs |
+| `geometry_msgs` | https://wiki.ros.org/geometry_msgs |
+| `cv_bridge` | https://wiki.ros.org/cv_bridge |
+| `turtlebot3` | https://wiki.ros.org/turtlebot3 |
+| `turtlebot3_msgs` | https://wiki.ros.org/turtlebot3_msgs |
+| `turtlebot3_simulations` | https://wiki.ros.org/turtlebot3_simulations |
+| `ros_gz_sim` | https://index.ros.org/p/ros_gz_sim/ |
+| `rosgraph_msgs` | https://wiki.ros.org/rosgraph_msgs |
   
 ### External Repositories
 
