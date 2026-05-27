@@ -112,6 +112,12 @@ while the blue marker represents a previously detected but currently disappeared
 - `nav_msgs`
 - `std_msgs`
 - `visualization_msgs`
+- `sensor_msgs` – handling camera image messages
+- `geometry_msgs` – robot velocity control (`Twist`)
+- `cv_bridge` – converting ROS image messages to OpenCV format
+- `turtlebot3` – TurtleBot3 robot packages
+- `turtlebot3_simulations` – Gazebo simulation environment for TurtleBot3
+- `ros_gz_sim` / Gazebo packages – simulation and robot spawning
 
 ### External Repositories
 
